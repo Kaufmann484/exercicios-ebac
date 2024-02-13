@@ -1,20 +1,18 @@
-Feature: Configure Product and amount
+# language: pt
+Funcionalidade: Escolher produto e quantidade
 
     Como cliente da EBAC-SHOP
     Quero configurar meu produto de acordo com meu tamanho e gosto
-    E escolher a quantidade
+    Escolher a quantidade
     Para depois inserir no carrinho
 
-    Background:
-        Given Eu acesse uma página de produto
+    Contexto:
+        Dado Eu acesse uma página de produto
 
-    Scenario Outline:  Seleções de cor, tamanho e quantidade devem ser obrigatórios
+    Esquema de Cenário:  Seleções de cor, tamanho e quantidade devem ser obrigatórios
 
-        When eu seleciono <cor>
-        And e seleciono <tamanho>
-        And e seleciono <quantidade>
-        And e clico no botão "Comprar"
-        Then deve exibir uma menssagen <menssagem>
+        Quando eu seleciono <cor>,<tamanho>, <tamanho>,e clico no botão "Comprar"
+        Então deve exibir uma menssagen <menssagem>
 
             | cor    | tamanho | quantidade | menssagem                                                            |
             | "blue" | "XS"    | 1          | "Itens adicionados ao carrinho"                                      |
@@ -23,11 +21,10 @@ Feature: Configure Product and amount
             | "blue" | "XS"    | 0          | "Selecione cor, tamanho e quantidade antes de adicionar ao carrinho" |
 
 
-    Scenario Outline: Deve permitir apenas 10 produtos por venda
+    Esquema de Cenário: Deve permitir apenas 10 produtos por venda
 
-        Given eu adiciono <produtos> ao <carrinho>
-        And <produtos> + <carrinho> > 10
-        Then deve <comportamento> os produtos no carrinho, e exibir uma <menssagem>
+        Dado eu adiciono <produtos> ao <carrinho>, mas <produtos> + <carrinho> > 10
+        Então deve <comportamento> os produtos no carrinho, e exibir uma <menssagem>
 
             | produtos | carrinho | comportamento | menssagem                                       |
             | 1        | 0        | "incluir"     | "Itens adicionados ao carrinho"                 |
@@ -35,7 +32,7 @@ Feature: Configure Product and amount
             | 10       | 0        | "incluir"     | "itens adicionados ao carrinho"                 |
             | 6        | 5        | "não incluir" | "O carrinho comporta apenas 10 items por venda" |
 
-    Scenario:Quando eu clicar no botão “limpar” deve voltar ao estado original
+    Cenário:Quando eu clicar no botão “limpar” deve voltar ao estado original
 
-        Given Opções de Cor e Tamanho, diferentes das iniciais, estejam selecionados
-        When Botão "Limpar" for clicado, as Opções de Cor e Tamanho devem voltar as iniciais.
+        Dado Opções de Cor e Tamanho, diferentes das iniciais, estejam selecionados
+        Quando Botão "Limpar" for clicado, as Opções de Cor e Tamanho devem voltar as iniciais.
